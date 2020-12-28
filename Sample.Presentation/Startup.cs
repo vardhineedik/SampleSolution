@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimpleInjector;
 
 namespace Sample.Presentation
 {
     public class Startup
     {
+        private Container container = new SimpleInjector.Container();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,6 +24,18 @@ namespace Sample.Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddSimpleInjector(container, options =>
+            {
+                options.AddAspNetCore()    
+                    .AddControllerActivation()
+                    .AddViewComponentActivation()
+                    .AddPageModelActivation()
+                    .AddTagHelperActivation();
+
+                options.AddLogging();
+               // options.AddLocalization();
+            });
             services.AddControllersWithViews();
         }
 
@@ -41,6 +55,7 @@ namespace Sample.Presentation
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSimpleInjector(container);
 
             app.UseEndpoints(endpoints =>
             {
