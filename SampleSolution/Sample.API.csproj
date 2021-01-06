@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sample.Infrastructure\Sample.Infrastructure.csproj" />
   </ItemGroup>
 
