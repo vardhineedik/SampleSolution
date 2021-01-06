@@ -49,9 +49,10 @@ namespace SampleSolution
                       });
                 });
                 options.AddLogging();
+                options.Services.AddTransient<IHelloWorldMessageRepository, HelloWorldMessageRepository>();
                 // options.AddLocalization();
             });
-            services.AddTransient<IHelloWorldMessageRepository, HelloWorldMessageRepository>();
+          //  services.AddTransient<IHelloWorldMessageRepository, HelloWorldMessageRepository>();
             services.AddControllers();
         }
 
